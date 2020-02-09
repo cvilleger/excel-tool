@@ -1,4 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const elems = document.querySelectorAll('.sidenav');
-    M.Sidenav.init(elems, {});
+    M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
+    M.Parallax.init(document.querySelectorAll('.parallax'), {});
 });

@@ -1,17 +1,25 @@
-<nav>
-    <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Excel Tool</a>
-        <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="{{ path('app_home') }}" class="brand-logo">Excel Tool</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="">Features</a></li>
-            <li><a href="">Pricing</a></li>
-            <li><a href="">Register</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('app_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ path('app_logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ path('app_register') }}">Register</a></li>
+                <li><a href="{{ path('app_login') }}">Login</a></li>
+            {% endif %}
         </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+            {% if app.user %}
+                <li><a href="{{ path('app_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ path('app_logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ path('app_register') }}">Register</a></li>
+                <li><a href="{{ path('app_login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </nav>
-
-<ul class="sidenav" id="mobile">
-    <li><a href="">Features</a></li>
-    <li><a href="">Pricing</a></li>
-    <li><a href="">Register</a></li>
-</ul>
