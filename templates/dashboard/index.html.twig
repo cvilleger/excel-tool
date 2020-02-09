@@ -3,5 +3,11 @@
 {% block title %}Dashboard - {{ parent() }}{% endblock %}
 
 {% block body %}
-
+    <div class="container">
+        <h1>Upload Files</h1>
+        {{ form_start(form) }}
+            {{ form_row(form.files) }}
+            <button class="btn">Send</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
