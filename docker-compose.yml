@@ -38,9 +38,6 @@ services:
     volumes:
       - 'rabbitmq_data:/bitnami'
     ports:
-      - '4369:4369'
-      - '5672:5672'
-      - '25672:25672'
       - '15672:15672'
 volumes:
   mysql_data:
