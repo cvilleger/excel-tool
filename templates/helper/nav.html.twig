@@ -28,15 +28,50 @@
     </div>
 </nav>
 
+{% if app.user %}
+
 <div id="modal-notification" class="modal">
     <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <h4>Notification Center</h4>
+        <ul class="collection">
+            {% for file in app.user.files %}
+            <li class="collection-item avatar">
+                <i class="material-icons circle">folder</i>
+                <span class="title">{{ file.name }}</span>
+                <p>In Progress<br>
+                    42% of {{ file.size }}
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+            {% else %}
+                <li class="collection-item">
+                    No Notification
+                </li>
+            {% endfor %}
+            <li class="collection-item avatar">
+                <i class="material-icons circle green">insert_chart</i>
+                <span class="title">Title</span>
+                <p>First Line <br>
+                    Second Line
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+            <li class="collection-item avatar">
+                <i class="material-icons circle red">play_arrow</i>
+                <span class="title">Title</span>
+                <p>First Line <br>
+                    Second Line
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+        </ul>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="" class="modal-close waves-effect waves-green btn-flat">Ok</a>
     </div>
 </div>
+
+{% endif %}
 
 {% for label, messages in app.flashes %}
     {% for message in messages %}

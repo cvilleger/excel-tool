@@ -14,7 +14,7 @@ class FilesFormType extends AbstractType
     {
         $builder
             ->add('files', FileType::class, [
-                'label' => 'XLSX Files',
+                'label' => false,
                 'mapped' => false,
                 'multiple' => true,
             ])
