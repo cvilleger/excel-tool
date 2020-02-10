@@ -14,11 +14,12 @@ class FileTransformerService
         $files = $user->getFiles();
         foreach ($files as $file) {
             $reader = ReaderEntityFactory::createReaderFromFile($file->getPath());
-            $reader->open($file->getPath());//4
+            $reader->open($file->getPath());
             /** @var SheetInterface $sheet */
             foreach ($reader->getSheetIterator() as $sheet) {
                 /** @var Row $row */
                 foreach ($sheet->getRowIterator() as $row) {
+                    // TODO start Iterator at 4 (config/const)
                     if ($sheet->getRowIterator()->key() < 4) {
                         continue;
                     }
