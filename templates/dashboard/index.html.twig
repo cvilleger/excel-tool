@@ -3,11 +3,36 @@
 {% block title %}Dashboard - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Upload Files</h1>
-        {{ form_start(form) }}
-            {{ form_row(form.files) }}
-            <button class="btn">Send</button>
-        {{ form_end(form) }}
-    </div>
+<div class="container">
+    <h1>Upload Files</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.files) }}
+        <button class="btn">Send</button>
+    {{ form_end(form) }}
+
+    <table class="striped highlight">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for file in app.user.files %}
+            <tr>
+                <td>{{ file.name }}</td>
+                <td>{{ file.size }} Ko</td>
+                <td>{{ file.path }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>No Files</td>
+                <td>No Files</td>
+                <td>No Files</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

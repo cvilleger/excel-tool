@@ -7,6 +7,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploaderService
 {
+    private $uploadDir;
+
+    public function __construct(string $uploadDir)
+    {
+        $this->uploadDir = $uploadDir;
+    }
+
     public function upload(UploadedFile $file): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -14,7 +21,7 @@ class FileUploaderService
         $fileName = $safeFilename.'-'.uniqid('', true).'.'.$file->guessExtension();
 
         try {
-            $file->move('./', $fileName);
+            $file->move($this->uploadDir, $fileName);
         } catch (FileException $e) {
             throw new \HttpException($e->getMessage(), 500, $e);
         }

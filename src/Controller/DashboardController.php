@@ -34,15 +34,16 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $Uploadedfiles = $form->get('files')->getData();
+            $uploadedfiles = $form->get('files')->getData();
             /** @var UploadedFile $uploadedfile */
-            foreach ($Uploadedfiles as $uploadedfile) {
+            foreach ($uploadedfiles as $uploadedfile) {
                 $filename = $this->fileUploaderService->upload($uploadedfile);
-                $file = new File();
-                $file->setName($uploadedfile->getClientOriginalName());
-                $file->setSize($uploadedfile->getSize());
-                $file->setPath($filename);
-                $file->setUser($user);
+                $file = (new File())
+                    ->setName($uploadedfile->getClientOriginalName())
+                    ->setSize($uploadedfile->getSize() / 1000)
+                    ->setPath($filename)
+                    ->setUser($user)
+                ;
 
                 $this->entityManager->persist($file);
             }

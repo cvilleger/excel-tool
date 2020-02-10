@@ -23,6 +23,8 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var string
+     *
      * @Assert\Email()
      * @ORM\Column(length=180, unique=true)
      */
