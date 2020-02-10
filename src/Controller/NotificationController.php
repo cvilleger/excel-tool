@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Message\UserFilesNotification;
+use App\Service\FileTransformerService;
 use App\Service\NotificationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,14 +18,16 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/notification", name="notification")
+     * @Route("/notification", name="app_notification")
      */
-    public function index()
+    public function index(FileTransformerService $fileTransformerService)
     {
-        $userFilesNotification = new UserFilesNotification($this->getUser()->getUsername());
-        $this->notificationService->dispatch($userFilesNotification);
+        $fileTransformerService->convert($this->getUser());
 
-        $this->addFlash('success', 'Notification sent');
+//        $userFilesNotification = new UserFilesNotification($this->getUser()->getUsername());
+//        $this->notificationService->dispatch($userFilesNotification);
+//
+//        $this->addFlash('success', 'Notification sent');
 
         return $this->redirectToRoute('app_dashboard');
     }

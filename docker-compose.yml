@@ -8,6 +8,7 @@ services:
       - 80:80
     volumes:
       - .:/app
+      - 'uploads_data:/app/uploads'
     environment:
       WEB_DOCUMENT_ROOT: /app/public
       WEB_DOCUMENT_INDEX: index.php
@@ -43,4 +44,6 @@ volumes:
   mysql_data:
     driver: local
   rabbitmq_data:
+    driver: local
+  uploads_data:
     driver: local

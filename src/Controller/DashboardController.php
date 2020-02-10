@@ -16,11 +16,13 @@ class DashboardController extends AbstractController
 {
     private $fileUploaderService;
     private $entityManager;
+    private $uploadDir;
 
-    public function __construct(FileUploaderService $fileUploaderService, EntityManagerInterface $entityManager)
+    public function __construct(FileUploaderService $fileUploaderService, EntityManagerInterface $entityManager, string $uploadDir)
     {
         $this->fileUploaderService = $fileUploaderService;
         $this->entityManager = $entityManager;
+        $this->uploadDir = $uploadDir;
     }
 
     /**
@@ -41,7 +43,7 @@ class DashboardController extends AbstractController
                 $file = (new File())
                     ->setName($uploadedfile->getClientOriginalName())
                     ->setSize($uploadedfile->getSize() / 1000)
-                    ->setPath($filename)
+                    ->setPath($this->uploadDir.'/'.$filename)
                     ->setUser($user)
                 ;
 

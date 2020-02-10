@@ -4,6 +4,7 @@
         <ul class="right hide-on-med-and-down">
             {% if app.user %}
                 <li><a href="{{ path('app_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ path('app_notification') }}">Notification</a></li>
                 <li><a href="{{ path('app_logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ path('app_register') }}">Register</a></li>
@@ -14,6 +15,7 @@
         <ul id="nav-mobile" class="sidenav">
             {% if app.user %}
                 <li><a href="{{ path('app_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ path('app_notification') }}">Notification</a></li>
                 <li><a href="{{ path('app_logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ path('app_register') }}">Register</a></li>
