@@ -6,17 +6,34 @@ use App\Entity\User;
 use Box\Spout\Common\Entity\Row;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\SheetInterface;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
 class FileTransformerService
 {
-    public function convert(User $user)
+    private $uploadDir;
+    private $reader;
+    private $writer;
+
+    public function __construct(string $uploadDir)
+    {
+        $this->uploadDir = $uploadDir;
+        $this->reader = ReaderEntityFactory::createXLSXReader();
+        $this->writer = WriterEntityFactory::createCSVWriter();
+    }
+
+    public function convert(User $user): ?string
     {
         $files = $user->getFiles();
+        if (empty($files)) {
+            return null;
+        }
+
+        $this->writer->openToFile($this->uploadDir.'/test.csv');
+
         foreach ($files as $file) {
-            $reader = ReaderEntityFactory::createReaderFromFile($file->getPath());
-            $reader->open($file->getPath());
+            $this->reader->open($file->getPath());
             /** @var SheetInterface $sheet */
-            foreach ($reader->getSheetIterator() as $sheet) {
+            foreach ($this->reader->getSheetIterator() as $sheet) {
                 /** @var Row $row */
                 foreach ($sheet->getRowIterator() as $row) {
                     // TODO start Iterator at 4 (config/const)
@@ -24,27 +41,14 @@ class FileTransformerService
                         continue;
                     }
 
-                    $data = $row->toArray();
-
-                    $id = $data[1];
-                    $email = $data[2];
-                    $civility = $data[3];
-                    $name = $data[4];
-                    $firstname = $data[5];
-                    $address1 = $data[6];
-                    $address2 = $data[7];
-                    $postalCode = $data[8];
-                    $city = $data[9];
-                    $phone = $data[10];
-                    $optInEmail = $data[11];
-                    $cartPrice = $data[12];
-                    $fidCard = $data[13];
-                    $lastShopDate = $data[14];
-
-                    // TODO
+                    $this->writer->addRow(WriterEntityFactory::createRowFromArray($row->toArray()));
                 }
             }
 
         }
+
+        $this->writer->close();
+
+        return $this->uploadDir.'/test.csv';
     }
 }

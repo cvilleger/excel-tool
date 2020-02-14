@@ -34,4 +34,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/dashboard, roles: ROLE_USER }
-        - { path: ^/notification, roles: ROLE_USER }
+        - { path: ^/dashboard/notification, roles: ROLE_USER }
+        - { path: ^/dashboard/reset, roles: ROLE_USER }

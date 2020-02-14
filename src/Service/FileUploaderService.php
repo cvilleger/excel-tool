@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class FileUploaderService
 {
@@ -23,7 +24,7 @@ class FileUploaderService
         try {
             $file->move($this->uploadDir, $fileName);
         } catch (FileException $e) {
-            throw new \HttpException($e->getMessage(), 500, $e);
+            throw new HttpException(500, $e->getMessage(), $e);
         }
 
         return $fileName;
